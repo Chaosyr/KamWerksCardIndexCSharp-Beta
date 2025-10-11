@@ -1,37 +1,6 @@
 ## Kam Werks Card Index
 
-### Sets;
-| Set | Set Code |
-| :-: | :-: |
-| Custom TCG Inscryption | CTI |
-| Desafts Mod (CTI) | DMC |
-| Inscryption Overhaul - The Final Duel | IOTFD |
-
-### Types;
-| Type | Type Code |
-| :-: | :-: |
-| Test | TEST |
-| Fancy Image | FANCY |
-| Full Card/Sigil | FULLCARD |
-
-### Modifiers;
-| Modier | Code | What It Does |
-| :-: | :-: | :-: |
-| No Excess | NOEXCESS | Get rid of the tips that pop on for querying sigils on formats that dont have the def shown |
-| Sigil Inclusive | SIGILINCLUSIVE | Query the sigil with the card |
-
-### Admin Commands;
-| Name | What it does |
-| :-: | :-: |
-| Recache | Allows an Admin of this server to recache the bots data. |
-
-### How do I use the bot?;
-
-Send a message with a bit resembling the below or use slash commands.
-
-* *For Cards:* [[SET;Card Name;Type(Optional);Modifers(Optional)]]
-* *For Sigils:* {{SET;Sigil Name;Type}}
-* *For Admin Commands:* <<Command>>
+When I'm done with the rewrite this will be rewrote.
 
 ### Where is data pulled from?;
 
