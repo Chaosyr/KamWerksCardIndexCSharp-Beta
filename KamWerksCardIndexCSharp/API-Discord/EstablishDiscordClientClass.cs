@@ -15,7 +15,7 @@ namespace KamWerksCardIndexCSharp.API_Discord
 			DiscordClientBuilder builder = DiscordClientBuilder.CreateDefault(StartingPoint.DiscordApiKeyPublic,
 				DiscordIntents.AllUnprivileged | DiscordIntents.MessageContents);
 			StartingPoint.DiscordClientBuilderPublic =  builder;
-			await builder.ConnectAsync();
+			await StartingPoint.DiscordClientBuilderPublic.ConnectAsync();
 		}
 	}
 }

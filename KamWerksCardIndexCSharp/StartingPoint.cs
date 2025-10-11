@@ -28,7 +28,6 @@ namespace KamWerksCardIndexCSharp
 		public static CommandHandler  RevoltCommandsPublic;
 
 		// General Const's
-		public static Assembly AssemblyPublic = Assembly.GetEntryAssembly();
 		
 		public static async Task Main()
 		{

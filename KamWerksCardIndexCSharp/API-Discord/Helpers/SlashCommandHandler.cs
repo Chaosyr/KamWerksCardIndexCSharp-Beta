@@ -15,9 +15,12 @@ namespace KamWerksCardIndexCSharp.API_Discord.Helpers
 		{
 			StartingPoint.DiscordClientBuilderPublic.UseCommands((IServiceProvider serviceProvider, CommandsExtension extension) =>
 			{
-				foreach (var type in passingInTypes)
+				if (passingInTypes.Count > 0)
 				{
-					extension.AddCommands(type);
+					foreach (var type in passingInTypes)
+					{
+						extension.AddCommands(type);
+					}
 				}
 				TextCommandProcessor textCommandProcessor = new(new()
 				{
