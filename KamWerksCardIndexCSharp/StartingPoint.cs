@@ -6,11 +6,11 @@ using KamWerksCardIndexCSharp.API_Revolt.Helpers;
 using KamWerksCardIndexCSharp.Data;
 using KamWerksCardIndexCSharp.Data.Inscryption_Card_Specific;
 using KamWerksCardIndexCSharp.Data.Inscryption_Sigil_Specific;
+using KamWerksCardIndexCSharp.Helpers.Palletes;
 using KamWerksCardIndexCSharp.Util;
 using Notion.Client;
 using RevoltSharp;
 using System.Collections.Concurrent;
-using System.Reflection;
 
 namespace KamWerksCardIndexCSharp
 {
@@ -23,7 +23,7 @@ namespace KamWerksCardIndexCSharp
 
 		// Notion Related Const's
 		public static NotionClient NotionClientPublic;
-		public static Dictionary<string, List<string>> IDLists = new Dictionary<string, List<string>>();
+		public static Dictionary<string, List<string>> IdLists = new Dictionary<string, List<string>>();
 		public static Dictionary<string, List<string>> NameLists = new Dictionary<string, List<string>>();
 		public static Dictionary<string, ConcurrentDictionary<string, string>> NameToIdDict = new Dictionary<string, ConcurrentDictionary<string, string>>();
 		public static Dictionary<string, List<string>> Sets = new Dictionary<string, List<string>>();
@@ -36,6 +36,7 @@ namespace KamWerksCardIndexCSharp
 		public static CommandHandler  RevoltCommandsPublic;
 
 		// General Const's
+		public static Dictionary<string, Shade> Palettes = new Dictionary<string, Shade>();
 		
 		public static async Task Main()
 		{

@@ -29,7 +29,7 @@ namespace KamWerksCardIndexCSharp.API_Notion.Helpers
 				nextCursor = response.HasMore ? response.NextCursor : null;
 			} while (!string.IsNullOrEmpty(nextCursor));
 			
-			StartingPoint.IDLists.Add($"Key_{databaseId}", pageIds);
+			StartingPoint.IdLists.Add($"Key_{databaseId}", pageIds);
 		}
 	}
 }

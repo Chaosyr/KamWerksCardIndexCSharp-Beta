@@ -30,7 +30,7 @@ namespace KamWerksCardIndexCSharp.API_Revolt.Helpers
 			if (Message == null || Message.Author.IsBot)
 				return;
 			int argPos = 0;
-			if (!Message.HasStringPrefix("[[", ref argPos) || !Message.HasStringPrefix("{{", ref argPos) || !Message.HasStringPrefix("<<", ref argPos) || !(Message.HasCharPrefix('!', ref argPos) || Message.HasMentionPrefix(Client.CurrentUser, ref argPos)))
+			if (!Message.HasStringPrefix("[[", ref argPos) || !Message.HasStringPrefix("{{", ref argPos) || !Message.HasStringPrefix("<<", ref argPos) || !(Message.HasCharPrefix('|', ref argPos) || Message.HasMentionPrefix(Client.CurrentUser, ref argPos)))
 				return;
 			CommandContext context = new CommandContext(Client, Message);
 			Service.ExecuteAsync(context, argPos, null);

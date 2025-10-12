@@ -16,7 +16,7 @@ namespace KamWerksCardIndexCSharp.API_Notion.Helpers
 		public static async Task SetupNameConcurrentDictionary(NotionClient client, string itemType, string databaseId)
 		{
 			ConcurrentDictionary<string, string> pageNameDict = new ConcurrentDictionary<string, string>();
-			List<string> pageIds = StartingPoint.IDLists[$"Key_{databaseId}"];
+			List<string> pageIds = StartingPoint.IdLists[$"Key_{databaseId}"];
 			StartingPoint.NameLists.Add($"Key_{databaseId}", new List<string>());
 
 			var tasks = pageIds.Select(async id =>

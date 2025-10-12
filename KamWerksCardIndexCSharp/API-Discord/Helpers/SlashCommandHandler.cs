@@ -22,7 +22,7 @@ namespace KamWerksCardIndexCSharp.API_Discord.Helpers
 						extension.AddCommands(type);
 					}
 				}
-				TextCommandProcessor textCommandProcessor = new(new()
+				TextCommandProcessor textCommandProcessor = new TextCommandProcessor(new TextCommandConfiguration()
 				{
 					PrefixResolver = new DefaultPrefixResolver(true, "|").ResolvePrefixAsync,
 				});

@@ -11,11 +11,11 @@ namespace KamWerksCardIndexCSharp.Data
 		/// This code is provided by Creator/Chaosyr/SaxbyMod/The Stoat Lord.
 		public static async Task Fill()
 		{
-			List<string> CTI = new List<string>() {SetupDataInscryptionCards.CustomTCGInscryptionCardsDatabaseId, SetupDataInscryptionSigils.CustomTCGInscryptionSigilsDatabaseId};
+			List<string> CTI = new List<string>() {"Key_" + SetupDataInscryptionCards.CustomTCGInscryptionCardsDatabaseId, "Key_" + SetupDataInscryptionSigils.CustomTCGInscryptionSigilsDatabaseId};
 			AssociateNameToKeys.Associate("Custom TCG Inscrypion", CTI);
-			List<string> DMC = new List<string>() {SetupDataInscryptionCards.DesaftsModCustomTCGInscryptionCardsDatabaseId, SetupDataInscryptionSigils.DesaftsModCustomTCGInscryptionSigilsDatabaseId};
+			List<string> DMC = new List<string>() {"Key_" + SetupDataInscryptionCards.DesaftsModCustomTCGInscryptionCardsDatabaseId, "Key_" + SetupDataInscryptionSigils.DesaftsModCustomTCGInscryptionSigilsDatabaseId};
 			AssociateNameToKeys.Associate("Desaft's Mod (Custom TCG Inscryption)", DMC);
-			List<string> IOTFD = new List<string>() {SetupDataInscryptionCards.InscryptionOverhaulTheFinalDuelCardsDatabaseId, SetupDataInscryptionSigils.InscryptionOverhaulTheFinalDuelSigilsDatabaseId};
+			List<string> IOTFD = new List<string>() {"Key_" + SetupDataInscryptionCards.InscryptionOverhaulTheFinalDuelCardsDatabaseId, "Key_" + SetupDataInscryptionSigils.InscryptionOverhaulTheFinalDuelSigilsDatabaseId};
 			AssociateNameToKeys.Associate("Inscryption Overhaul; The Final Duel", IOTFD);
 		}
 	}

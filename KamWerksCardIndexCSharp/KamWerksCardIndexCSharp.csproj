@@ -19,7 +19,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Discord\Inscryption Card Specific\Debug\" />
+    <Folder Include="Commands\Discord Slash\Inscryption Card Specific\Debug\" />
+    <Folder Include="Commands\Discord Slash\Inscryption Card Specific\Embed\" />
+    <Folder Include="Commands\Discord Slash\Inscryption Card Specific\Fancy\" />
+    <Folder Include="Commands\Discord Slash\Inscryption Card Specific\Full\" />
+    <Folder Include="Commands\Discord Slash\Inscryption Sigil Specific\Debug\" />
+    <Folder Include="Commands\Discord Slash\Inscryption Sigil Specific\Embed\" />
+    <Folder Include="Commands\Discord Slash\Inscryption Sigil Specific\Fancy\" />
     <Folder Include="Commands\Discord\Inscryption Card Specific\Embed\" />
     <Folder Include="Commands\Discord\Inscryption Card Specific\Fancy\" />
     <Folder Include="Commands\Discord\Inscryption Card Specific\Full\" />
