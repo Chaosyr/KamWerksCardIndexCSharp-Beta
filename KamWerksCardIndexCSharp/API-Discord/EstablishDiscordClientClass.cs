@@ -1,4 +1,6 @@
 ﻿using DSharpPlus;
+using KamWerksCardIndexCSharp.API_Discord.Helpers;
+using KamWerksCardIndexCSharp.Commands.Discord.Inscryption_Card_Specific;
 using KamWerksCardIndexCSharp.Helpers.Logging;
 
 namespace KamWerksCardIndexCSharp.API_Discord
@@ -15,6 +17,7 @@ namespace KamWerksCardIndexCSharp.API_Discord
 			DiscordClientBuilder builder = DiscordClientBuilder.CreateDefault(StartingPoint.DiscordApiKeyPublic,
 				DiscordIntents.AllUnprivileged | DiscordIntents.MessageContents);
 			StartingPoint.DiscordClientBuilderPublic =  builder;
+			MessageCommandHandler.MessageCommands(typeof(InscryptionCardFetch));
 			await StartingPoint.DiscordClientBuilderPublic.ConnectAsync();
 		}
 	}

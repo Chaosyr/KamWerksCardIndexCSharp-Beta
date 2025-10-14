@@ -13,7 +13,6 @@ namespace KamWerksCardIndexCSharp.API_Notion.Helpers
 		/// This code is provided by Creator/Chaosyr/SaxbyMod/The Stoat Lord.
 		public static async Task<T> RetryWithBackoff<T>(Func<Task<T>> action)
 		{
-			int retryCount = 0;
 			int delay = 1000;
 
 			while (true)
@@ -27,7 +26,16 @@ namespace KamWerksCardIndexCSharp.API_Notion.Helpers
 					int waitTime = ex.RetryAfter?.Milliseconds + 50 ?? delay;
 					Logging.Log("RetryWithBackoff", "Error", $"Rate limited! Retrying in {waitTime}ms...");
 					await Task.Delay(waitTime);
-					retryCount++;
+				}
+				catch (NotionApiException ex)
+				{
+					Logging.Log("RetryWithBackoff", "Error", $"Notion API Exception: {ex.Message} | StatusCode: {ex.StatusCode}");
+					await Task.Delay(delay);
+				}
+				catch (Exception ex)
+				{
+					Logging.Log("RetryWithBackoff", "Error", $"Unexpected exception in RetryWithBackoff: {ex.GetType().Name} — {ex.Message}");
+					throw;
 				}
 			}
 		}

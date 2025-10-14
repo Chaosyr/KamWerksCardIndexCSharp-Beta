@@ -1,8 +1,6 @@
-﻿using DSharpPlus;
-using DSharpPlus.Entities;
-using DSharpPlus.EventArgs;
+﻿using DSharpPlus.Entities;
 using KamWerksCardIndexCSharp.API_Notion.Helpers;
-using System.Text.RegularExpressions;
+using KamWerksCardIndexCSharp.Helpers.Logging;
 
 namespace KamWerksCardIndexCSharp.Commands.Discord.Inscryption_Card_Specific.Debug
 {
@@ -20,38 +18,52 @@ namespace KamWerksCardIndexCSharp.Commands.Discord.Inscryption_Card_Specific.Deb
 		/// This code is provided by Creator/Chaosyr/SaxbyMod/The Stoat Lord.
 		public static async Task<(string Output, DiscordMessageBuilder formattedOutput)> DebugFetch(int Iterator, string set, string name, string overload)
 		{
-			DiscordMessageBuilder messageBuilder = new();
-			var output = "```";
+			DiscordMessageBuilder messageBuilder = new DiscordMessageBuilder();
+			string output = "```";
+			List<string> linesOfText = new List<string>();
+			var imageurl = "";
 			if (set.ToLower() == "cti")
 			{
 				string cardId = StartingPoint.NameToIdDict[StartingPoint.Sets["Custom TCG Inscryption"][0]].GetValueOrDefault(name);
-				var linesoftext = await PageFetchClass.PageFetch(name, "CTI");
-			}
-			int l = 0;
-			foreach (var i in linesoftext.textBlocks)
+				linesOfText = await RetryWithBackoffClass.RetryWithBackoff(() => PageTextFetchClass.PageTextFetch(name, "CTI"));
+				imageurl = "";
+			} else if (set.ToLower() == "dmc")
 			{
-				var j = i.ToString().Replace("\n", "");
-				logger.Info(j);
-				l += 1;
-				var k = l % 2;
-				if (k == 0)
-				{
-					output += j + "\n";
-				}
-				else
-				{
-					output += j;
-				}
+				string cardId = StartingPoint.NameToIdDict[StartingPoint.Sets["Desaft's Mod (Custom TCG Inscryption)"][0]].GetValueOrDefault(name);
+				linesOfText = await RetryWithBackoffClass.RetryWithBackoff(() => PageTextFetchClass.PageTextFetch(name, "DMC"));
+				imageurl = "";
+			} else if (set.ToLower() == "iotfd")
+			{
+				string cardId = StartingPoint.NameToIdDict[StartingPoint.Sets["Inscryption Overhaul; The Final Duel"][0]].GetValueOrDefault(name);
+				linesOfText = await RetryWithBackoffClass.RetryWithBackoff(() => PageTextFetchClass.PageTextFetch(name, "IOTFD"));
+				imageurl = "";
 			}
+
+			int curr = 0;
+			foreach (string line in linesOfText)
+			{
+				string newLine = line.Replace("\n", "");
+
+				if (newLine.Contains(':')) {
+					if (curr > 0)
+						output += "\n" + newLine + "\n";
+					else
+						output += newLine + "\n";
+				} else
+				{
+					output += newLine;
+				}
+
+				Logging.Log("InscryptionDebugCardFetchFormatting", "Info", $"Line found; {newLine}");
+				curr++;
+			}
+			output = output.Replace("Artist - ", "\nArtist - ");
 			output += "```";
-			logger.Info(linesoftext.textBlocks[1].TrimStart().Replace(" ", "%20").Replace("\n", ""));
-			logger.Info(linesoftext.textBlocks[3].TrimStart().Replace(" ", "%20").Replace("\n", ""));
-			var imageurl = $"https://raw.githubusercontent.com/SaxbyMod/NotionAssets/refs/heads/main/Formats/{linesoftext.textBlocks[1].TrimStart().Replace(" ", "%20").Replace("\n", "")}/Portraits/{linesoftext.textBlocks[3].TrimStart().Replace(" ", "%20").Replace("\n", "")}.png";
-			HttpClient httpClient = new HttpClient();
-			var file = await httpClient.GetStreamAsync(imageurl);
+			
+			Logging.Log("InscryptionDebugCardFetchFormatting", "Info", imageurl);
+			var file = await StartingPoint.httpClientPublic.GetStreamAsync(imageurl);
 			messageBuilder.AddFile($"portrait_{Iterator}.png", file);
-			logger.Info(imageurl);
-		return (messageBuilder, output);
+		return (output, messageBuilder);
 		}
 	}
 }

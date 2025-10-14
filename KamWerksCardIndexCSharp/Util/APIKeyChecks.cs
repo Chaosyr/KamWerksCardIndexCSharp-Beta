@@ -18,7 +18,7 @@ namespace KamWerksCardIndexCSharp.Util
 			}
 			StartingPoint.NotionApiKeyPublic = notionApiKey;
 			
-			string discordApiKey = Environment.GetEnvironmentVariable("TUTOR TOKEN BETA");
+			string discordApiKey = Environment.GetEnvironmentVariable("DISCORD_TOKEN_BETA");
 			if (string.IsNullOrWhiteSpace(discordApiKey))
 			{
 				Logging.Log("APIKeyChecks", "Error", "Hey, You missed the Discord API Key Environment Var.");
@@ -31,8 +31,15 @@ namespace KamWerksCardIndexCSharp.Util
 				Logging.Log("APIKeyChecks", "Error", "Hey, You missed the Revolt API Key Environment Var.");
 			}
 			StartingPoint.RevoltApiKeyPublic = revoltApiKey;
+			
+			string githubApiKey = Environment.GetEnvironmentVariable("GITHUB_API_KEY");
+			if (string.IsNullOrWhiteSpace(githubApiKey))
+			{
+				Logging.Log("APIKeyChecks", "Error", "Hey, You missed the Github API Key Environment Var.");
+			}
+			StartingPoint.GitHubApiKeyPublic = githubApiKey;
 
-			if (string.IsNullOrWhiteSpace(revoltApiKey) || string.IsNullOrWhiteSpace(notionApiKey) || string.IsNullOrWhiteSpace(discordApiKey))
+			if (string.IsNullOrWhiteSpace(revoltApiKey) || string.IsNullOrWhiteSpace(notionApiKey) || string.IsNullOrWhiteSpace(discordApiKey) || string.IsNullOrWhiteSpace(githubApiKey))
 			{
 				return false;
 			}

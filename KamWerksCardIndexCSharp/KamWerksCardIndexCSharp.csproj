@@ -8,9 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DSharpPlus" Version="5.0.0-nightly-02551" />
-    <PackageReference Include="DSharpPlus.Commands" Version="5.0.0-nightly-02551" />
+    <PackageReference Include="DSharpPlus" Version="5.0.0-nightly-02552" />
+    <PackageReference Include="DSharpPlus.Commands" Version="5.0.0-nightly-02552" />
     <PackageReference Include="Notion.Net" Version="4.4.0-preview-1.9.16.2025" />
+    <PackageReference Include="Octokit" Version="14.0.0" />
     <PackageReference Include="RevoltSharp" Version="8.3.0" />
     <PackageReference Include="RevoltSharp.Commands" Version="1.3.0" />
     <PackageReference Include="SixLabors.Fonts" Version="2.1.3" />

@@ -3,7 +3,7 @@ using Notion.Client;
 
 namespace KamWerksCardIndexCSharp.API_Notion.Helpers
 {
-	public class PageFetchClass
+	public class PageTextFetchClass
 	{
         /// <summary>
         /// Gets the text on a card from a page based on the set and name passed in.
@@ -12,19 +12,19 @@ namespace KamWerksCardIndexCSharp.API_Notion.Helpers
         /// <param name="name">The name of the card.</param>
         /// <returns>The text in segments via a List of Strings.</returns>
         /// This code is provided by Creator/Chaosyr/SaxbyMod/The Stoat Lord.
-        public static async Task<List<string>> PageFetch(string name, string set)
+        public static async Task<List<string>> PageTextFetch(string name, string set)
         {
             string id = "";
             Logging.Log("PageFetchClass", "info", $"Fetching information for {name}...");
-            if (set == "CTI")
+            if (set == "CTI" || set == "Custom TCG Inscryption")
             {
 	            id = StartingPoint.NameToIdDict[StartingPoint.Sets["Custom TCG Inscryption"][0]].GetValueOrDefault(name);
             }
-            else if (set == "DMC")
+            else if (set == "DMC" || set == "Desaft's Mod (Custom TCG Inscryption)")
             {
 	            id = StartingPoint.NameToIdDict[StartingPoint.Sets["Desaft's Mod (Custom TCG Inscryption)"][0]].GetValueOrDefault(name);
             }
-            else if (set == "IOTFD")
+            else if (set == "IOTFD" || set == "Inscryption Overhaul; The Final Duel")
             {
                 id = StartingPoint.NameToIdDict[StartingPoint.Sets["Inscryption Overhaul; The Final Duel"][0]].GetValueOrDefault(name);
             }
