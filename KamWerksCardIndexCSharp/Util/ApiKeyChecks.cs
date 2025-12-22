@@ -2,7 +2,7 @@
 
 namespace KamWerksCardIndexCSharp.Util
 {
-	public class APIKeyChecks
+	public class ApiKeyChecks
 	{
 		/// <summary>
 		/// This function determines whether our tokens are valid and fetches them.
@@ -11,31 +11,31 @@ namespace KamWerksCardIndexCSharp.Util
 		/// This code is provided by Creator/Chaosyr/SaxbyMod/The Stoat Lord.
 		public static bool ValidateTokens()
 		{
-			string notionApiKey = Environment.GetEnvironmentVariable("NOTION_API_KEY");
+			string? notionApiKey = Environment.GetEnvironmentVariable("NOTION_API_KEY");
 			if (string.IsNullOrWhiteSpace(notionApiKey))
 			{
-				Logging.Log("APIKeyChecks", "Error", "Hey, You missed the Notion API Key Environment Var.");
+				Logger.Log("ApiKeyChecks", "Error", "Hey, You missed the Notion API Key Environment Var.").Wait();
 			}
 			StartingPoint.NotionApiKeyPublic = notionApiKey;
 			
-			string discordApiKey = Environment.GetEnvironmentVariable("DISCORD_TOKEN_BETA");
+			string? discordApiKey = Environment.GetEnvironmentVariable("DISCORD_TOKEN_BETA");
 			if (string.IsNullOrWhiteSpace(discordApiKey))
 			{
-				Logging.Log("APIKeyChecks", "Error", "Hey, You missed the Discord API Key Environment Var.");
+				Logger.Log("ApiKeyChecks", "Error", "Hey, You missed the Discord API Key Environment Var.").Wait();
 			}
 			StartingPoint.DiscordApiKeyPublic = discordApiKey;
 			
-			string revoltApiKey = Environment.GetEnvironmentVariable("REVOLT_TOKEN_BETA");
+			string? revoltApiKey = Environment.GetEnvironmentVariable("REVOLT_TOKEN_BETA");
 			if (string.IsNullOrWhiteSpace(revoltApiKey))
 			{
-				Logging.Log("APIKeyChecks", "Error", "Hey, You missed the Revolt API Key Environment Var.");
+				Logger.Log("ApiKeyChecks", "Error", "Hey, You missed the Revolt API Key Environment Var.").Wait();
 			}
 			StartingPoint.RevoltApiKeyPublic = revoltApiKey;
 			
-			string githubApiKey = Environment.GetEnvironmentVariable("GITHUB_API_KEY");
+			string? githubApiKey = Environment.GetEnvironmentVariable("GITHUB_API_KEY");
 			if (string.IsNullOrWhiteSpace(githubApiKey))
 			{
-				Logging.Log("APIKeyChecks", "Error", "Hey, You missed the Github API Key Environment Var.");
+				Logger.Log("ApiKeyChecks", "Error", "Hey, You missed the Github API Key Environment Var.").Wait();
 			}
 			StartingPoint.GitHubApiKeyPublic = githubApiKey;
 

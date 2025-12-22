@@ -12,11 +12,11 @@ namespace KamWerksCardIndexCSharp.Data
 		public static async Task Fill()
 		{
 			List<string> customTcgInscryption = new List<string>() {"Key_" + SetupDataInscryptionCards.CustomTCGInscryptionCardsDatabaseId, "Key_" + SetupDataInscryptionSigils.CustomTCGInscryptionSigilsDatabaseId};
-			AssociateNameToKeys.Associate("Custom TCG Inscryption", customTcgInscryption);
+			await AssociateNameToKeys.Associate("Custom TCG Inscryption", customTcgInscryption);
 			List<string> desaftsModCustomTcgInscryption = new List<string>() {"Key_" + SetupDataInscryptionCards.DesaftsModCustomTCGInscryptionCardsDatabaseId, "Key_" + SetupDataInscryptionSigils.DesaftsModCustomTCGInscryptionSigilsDatabaseId};
-			AssociateNameToKeys.Associate("Desaft's Mod (Custom TCG Inscryption)", desaftsModCustomTcgInscryption);
+			await AssociateNameToKeys.Associate("Desaft's Mod (Custom TCG Inscryption)", desaftsModCustomTcgInscryption);
 			List<string> inscryptionOverhaulTheFinalDuel = new List<string>() {"Key_" + SetupDataInscryptionCards.InscryptionOverhaulTheFinalDuelCardsDatabaseId, "Key_" + SetupDataInscryptionSigils.InscryptionOverhaulTheFinalDuelSigilsDatabaseId};
-			AssociateNameToKeys.Associate("Inscryption Overhaul; The Final Duel", inscryptionOverhaulTheFinalDuel);
+			await AssociateNameToKeys.Associate("Inscryption Overhaul; The Final Duel", inscryptionOverhaulTheFinalDuel);
 		}
 	}
 }

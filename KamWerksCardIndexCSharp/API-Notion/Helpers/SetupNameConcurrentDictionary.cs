@@ -31,11 +31,11 @@ namespace KamWerksCardIndexCSharp.API_Notion.Helpers
 						StartingPoint.NameLists[$"Key_{databaseId}"].Add(nameText);
 					}
 					pageNameDict[nameText] = id;
-					Logging.Log("SetupNameConcurrentDictionaryClass", "Info", $"Retrieved {itemType} Name: {nameText} (ID: {id})");
+					await Logger.Log("SetupNameConcurrentDictionaryClass", "Info", $"Retrieved {itemType} Name: {nameText} (ID: {id})");
 				}
 				else
 				{
-					Logging.Log("SetupNameConccurentDictionary", "Warning", $"Failed to retrieve {itemType} Name for ID: {id}");
+					await Logger.Log("SetupNameConccurentDictionary", "Warning", $"Failed to retrieve {itemType} Name for ID: {id}");
 				}
 			}).ToList();
 			

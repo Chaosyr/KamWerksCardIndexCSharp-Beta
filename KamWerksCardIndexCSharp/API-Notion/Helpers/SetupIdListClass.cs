@@ -24,7 +24,7 @@ namespace KamWerksCardIndexCSharp.API_Notion.Helpers
 					PageSize = 100
 				};
 				var response = await RetryWithBackoffClass.RetryWithBackoff(() => client.Databases.QueryAsync(databaseId, queryParams));
-				Logging.Log("SetupIdLists", "Info", $"Received {response.Results.Count} results for database {databaseId}");
+				await Logger.Log("SetupIdLists", "Info", $"Received {response.Results.Count} results for database {databaseId}");
 				pageIds.AddRange(response.Results.Select(page => page.Id));
 				nextCursor = response.HasMore ? response.NextCursor : null;
 			} while (!string.IsNullOrEmpty(nextCursor));

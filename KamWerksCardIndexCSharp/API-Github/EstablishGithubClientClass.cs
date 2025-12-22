@@ -12,7 +12,7 @@ namespace KamWerksCardIndexCSharp.API_Github
 		/// This code is provided by Creator/Chaosyr/SaxbyMod/The Stoat Lord.
 		public static async Task EstablishGithubClient()
 		{
-			Logging.Log("EstablishGithubClient", "Info", "Setting up the GitHub Client.");
+			await Logger.Log("EstablishGithubClient", "Info", "Setting up the GitHub Client.");
 			GitHubClient client = new GitHubClient(new ProductHeaderValue("KamWerksCardIndex"));
 			client.Credentials = new Credentials(StartingPoint.GitHubApiKeyPublic);
 			StartingPoint.GitHubClientPublic = client;

@@ -18,12 +18,12 @@ namespace KamWerksCardIndexCSharp.API_Github.Helpers
 				{
 					IReadOnlyList<RepositoryContent> contents = await StartingPoint.GitHubClientPublic.Repository.Content.GetAllContents(repository.FullName.Split('/')[0], repository.FullName.Split('/')[1]);
 					List<RepositoryContent> repoContents = contents.ToList();
-					Logging.Log("GetGithubRepoContents", "Info", $"Adding {repository.FullName} to GithubRepoContents.");
+					await Logger.Log("GetGithubRepoContents", "Info", $"Adding {repository.FullName} to GithubRepoContents.");
 					StartingPoint.GithubRepoContents.Add(repository.FullName, repoContents);
 				}
 				catch
 				{
-					Logging.Log("GetGithubRepoContents", "Error", $"Failed to add {repository.FullName} to GithubRepoContents, this should not occur but if it does try checking if it is a public repo and or contains content..");
+					await Logger.Log("GetGithubRepoContents", "Error", $"Failed to add {repository.FullName} to GithubRepoContents, this should not occur but if it does try checking if it is a public repo and or contains content..");
 				}
 			}
 		}

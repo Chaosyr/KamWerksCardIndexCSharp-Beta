@@ -26,12 +26,12 @@ namespace KamWerksCardIndexCSharp.API_Github.Helpers
 				try
 				{
 					Repository repository = await StartingPoint.GitHubClientPublic.Repository.Get(repo.Split('/')[0], repo.Split('/')[1]);
-					Logging.Log("FillGithubRepos", "Info", $"Adding {repository.FullName} to GithubRepos.");
+					await Logger.Log("FillGithubRepos", "Info", $"Adding {repository.FullName} to GithubRepos.");
 					StartingPoint.GithubRepos.Add(repository);
 				}
 				catch
 				{
-					Logging.Log("FillGithubRepos", "Error", $"Could not add {repo} to GithubRepos, validate that the entry is correct.");
+					await Logger.Log("FillGithubRepos", "Error", $"Could not add {repo} to GithubRepos, validate that the entry is correct.");
 				}
 			}
 		}

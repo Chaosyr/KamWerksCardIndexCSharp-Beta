@@ -26,7 +26,7 @@ namespace KamWerksCardIndexCSharp.API_Discord.Helpers
 
 					if (method == null)
 					{
-						Logging.Log("MessageCommandHandler", "Error", $"No suitable static method 'MessageSeen' found within {type.FullName}");
+						await Logger.Log("MessageCommandHandler", "Error", $"Failed to find 'MessageSeen' within {type.FullName}");
 						return;
 					}
 

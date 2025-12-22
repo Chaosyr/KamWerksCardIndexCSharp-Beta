@@ -14,7 +14,7 @@ namespace KamWerksCardIndexCSharp.API_Revolt
 		/// This code is provided by Creator/Chaosyr/SaxbyMod/The Stoat Lord.
 		public static async Task EstablishRevoltClient()
 		{
-			Logging.Log("EstablishRevoltClient", "Info", "Setting up the Revolt Client and Starting up the Bot.");
+			await Logger.Log("EstablishRevoltClient", "Info", "Setting up the Revolt Client and Starting up the Bot.");
 			RevoltClient client = new RevoltClient(ClientMode.WebSocket);
 			await client.LoginAsync(StartingPoint.RevoltApiKeyPublic, AccountType.Bot);
 			await client.StartAsync();

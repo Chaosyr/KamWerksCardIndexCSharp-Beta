@@ -15,7 +15,7 @@ namespace KamWerksCardIndexCSharp.API_Notion.Helpers
         public static async Task<List<string>> PageTextFetch(string name, string set)
         {
             string id = "";
-            Logging.Log("PageFetchClass", "info", $"Fetching information for {name}...");
+            await Logger.Log("PageFetchClass", "info", $"Fetching information for {name}...");
             if (set == "CTI" || set == "Custom TCG Inscryption")
             {
 	            id = StartingPoint.NameToIdDict[StartingPoint.Sets["Custom TCG Inscryption"][0]].GetValueOrDefault(name);
@@ -30,26 +30,26 @@ namespace KamWerksCardIndexCSharp.API_Notion.Helpers
             }
             else
             {
-                Logging.Log("PageFetchClass", "Error", "Set is undefined returning.");
+                await Logger.Log("PageFetchClass", "Error", "Set is undefined returning.");
                 return new List<string>();
             }
             
             if (string.IsNullOrEmpty(id))
             {
-                Logging.Log("PageFetchClass", "Error", $"Failed to find page ID for {name}.");
+                await Logger.Log("PageFetchClass", "Error", $"Failed to find page ID for {name}.");
                 return new List<string>();
             }
             
-            Page page = await StartingPoint.NotionClientPublic.Pages.RetrieveAsync(id);
+            Page page = await RetryWithBackoffClass.RetryWithBackoff(() => StartingPoint.NotionClientPublic.Pages.RetrieveAsync(id));
             var linesOfText = new List<string>();
-            var blocks = await StartingPoint.NotionClientPublic.Blocks.RetrieveChildrenAsync(new BlockRetrieveChildrenRequest{BlockId = id});
+            var blocks = await RetryWithBackoffClass.RetryWithBackoff(() => StartingPoint.NotionClientPublic.Blocks.RetrieveChildrenAsync(new BlockRetrieveChildrenRequest{BlockId = id}));
             
             foreach (var block in blocks.Results)
             {
-                var newblocks = await StartingPoint.NotionClientPublic.Blocks.RetrieveChildrenAsync(new BlockRetrieveChildrenRequest{BlockId = block.Id});
+                var newblocks = await RetryWithBackoffClass.RetryWithBackoff(() => StartingPoint.NotionClientPublic.Blocks.RetrieveChildrenAsync(new BlockRetrieveChildrenRequest{BlockId = block.Id}));
                 foreach (var myblock in newblocks.Results)
                 {
-                    var newblocks2 = await StartingPoint.NotionClientPublic.Blocks.RetrieveChildrenAsync(new BlockRetrieveChildrenRequest{BlockId = myblock.Id});
+                    var newblocks2 = await RetryWithBackoffClass.RetryWithBackoff(() => StartingPoint.NotionClientPublic.Blocks.RetrieveChildrenAsync(new BlockRetrieveChildrenRequest{BlockId = myblock.Id}));
                     foreach (var myblock2 in newblocks2.Results)
                     {
                         if (myblock2.GetType().Name == "ParagraphBlock")

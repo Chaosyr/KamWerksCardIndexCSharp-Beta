@@ -1,6 +1,9 @@
 ﻿using DSharpPlus.Entities;
+using KamWerksCardIndexCSharp.API_Github.Helpers;
 using KamWerksCardIndexCSharp.API_Notion.Helpers;
+using KamWerksCardIndexCSharp.Helpers.GithubNodes;
 using KamWerksCardIndexCSharp.Helpers.Logging;
+using Octokit;
 
 namespace KamWerksCardIndexCSharp.Commands.Discord.Inscryption_Card_Specific.Debug
 {
@@ -26,17 +29,25 @@ namespace KamWerksCardIndexCSharp.Commands.Discord.Inscryption_Card_Specific.Deb
 			{
 				string cardId = StartingPoint.NameToIdDict[StartingPoint.Sets["Custom TCG Inscryption"][0]].GetValueOrDefault(name);
 				linesOfText = await RetryWithBackoffClass.RetryWithBackoff(() => PageTextFetchClass.PageTextFetch(name, "CTI"));
-				imageurl = "";
-			} else if (set.ToLower() == "dmc")
+				List<RepositoryContent> CTIRepositoryContent = StartingPoint.GithubRepoContents[StartingPoint.GithubRepos.FirstOrDefault(repository => repository.FullName.Equals("Chaosyr/NotionAssets")).FullName];
+				GithubNode node = GetNodeInHeirarchy.GetWhere("Chaosyr/NotionAssets", CTIRepositoryContent, "/Formats/Custom TCG Inscryption/Portraits", $"{(linesOfText[3].TrimStart().Replace("\n", "").Replace(" ", "").TrimEnd())}.png", 0).Result.node;
+				imageurl = node.Current.DownloadUrl;
+			}
+			else if (set.ToLower() == "dmc")
 			{
 				string cardId = StartingPoint.NameToIdDict[StartingPoint.Sets["Desaft's Mod (Custom TCG Inscryption)"][0]].GetValueOrDefault(name);
 				linesOfText = await RetryWithBackoffClass.RetryWithBackoff(() => PageTextFetchClass.PageTextFetch(name, "DMC"));
-				imageurl = "";
-			} else if (set.ToLower() == "iotfd")
+				List<RepositoryContent> CTIRepositoryContent = StartingPoint.GithubRepoContents[StartingPoint.GithubRepos.FirstOrDefault(repository => repository.FullName.Equals("Chaosyr/NotionAssets")).FullName];
+				GithubNode node = GetNodeInHeirarchy.GetWhere("Chaosyr/NotionAssets", CTIRepositoryContent, "/Formats/Desafts Mod (CTI)/Portraits", $"{(linesOfText[3].TrimStart().Replace("\n", "").Replace(" ", "").TrimEnd())}.png", 0).Result.node;
+				imageurl = node.Current.DownloadUrl;
+			}
+			else if (set.ToLower() == "iotfd")
 			{
 				string cardId = StartingPoint.NameToIdDict[StartingPoint.Sets["Inscryption Overhaul; The Final Duel"][0]].GetValueOrDefault(name);
 				linesOfText = await RetryWithBackoffClass.RetryWithBackoff(() => PageTextFetchClass.PageTextFetch(name, "IOTFD"));
-				imageurl = "";
+				List<RepositoryContent> CTIRepositoryContent = StartingPoint.GithubRepoContents[StartingPoint.GithubRepos.FirstOrDefault(repository => repository.FullName.Equals("Chaosyr/NotionAssets")).FullName];
+				GithubNode node = GetNodeInHeirarchy.GetWhere("Chaosyr/NotionAssets", CTIRepositoryContent, "/Formats/Inscryption Overhaul - The Final Duel/Portraits", $"{(linesOfText[3].TrimStart().Replace("\n", "").TrimEnd())}.png", 0).Result.node;
+				imageurl = node.Current.DownloadUrl;
 			}
 
 			int curr = 0;
@@ -44,26 +55,33 @@ namespace KamWerksCardIndexCSharp.Commands.Discord.Inscryption_Card_Specific.Deb
 			{
 				string newLine = line.Replace("\n", "");
 
-				if (newLine.Contains(':')) {
+				if (newLine.Contains(':'))
+				{
 					if (curr > 0)
 						output += "\n" + newLine + "\n";
 					else
 						output += newLine + "\n";
-				} else
+				}
+				else
 				{
 					output += newLine;
 				}
 
-				Logging.Log("InscryptionDebugCardFetchFormatting", "Info", $"Line found; {newLine}");
+				await Logger.Log("InscryptionDebugCardFetchFormatting", "Info", $"Line found; {newLine}");
 				curr++;
 			}
 			output = output.Replace("Artist - ", "\nArtist - ");
 			output += "```";
-			
-			Logging.Log("InscryptionDebugCardFetchFormatting", "Info", imageurl);
+
+			await Logger.Log("InscryptionDebugCardFetchFormatting", "Info", imageurl);
+			if (string.IsNullOrWhiteSpace(imageurl) || !Uri.IsWellFormedUriString(imageurl, UriKind.Absolute))
+			{
+				await Logger.Log("InscryptionDebugCardFetchFormatting", "Error", $"Invalid image URL: {imageurl}");
+				return (output+=$"\nImage URL invalid, cannot fetch portrait. {imageurl}", messageBuilder);
+			}
 			var file = await StartingPoint.httpClientPublic.GetStreamAsync(imageurl);
 			messageBuilder.AddFile($"portrait_{Iterator}.png", file);
-		return (output, messageBuilder);
+			return (output, messageBuilder);
 		}
 	}
 }

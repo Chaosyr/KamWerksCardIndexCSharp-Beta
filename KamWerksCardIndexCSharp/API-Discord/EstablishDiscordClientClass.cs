@@ -13,11 +13,11 @@ namespace KamWerksCardIndexCSharp.API_Discord
 		/// This code is provided by Creator/Chaosyr/SaxbyMod/The Stoat Lord.
 		public static async Task EstablishDiscordClient()
 		{
-			Logging.Log("EstablishDiscordClient", "Info", "Setting up the Discord Client.");
+			await Logger.Log("EstablishDiscordClient", "Info", "Setting up the Discord Client.");
 			DiscordClientBuilder builder = DiscordClientBuilder.CreateDefault(StartingPoint.DiscordApiKeyPublic,
 				DiscordIntents.AllUnprivileged | DiscordIntents.MessageContents);
 			StartingPoint.DiscordClientBuilderPublic =  builder;
-			MessageCommandHandler.MessageCommands(typeof(InscryptionCardFetch));
+			await MessageCommandHandler.MessageCommands(typeof(InscryptionCardFetch));
 			await StartingPoint.DiscordClientBuilderPublic.ConnectAsync();
 		}
 	}

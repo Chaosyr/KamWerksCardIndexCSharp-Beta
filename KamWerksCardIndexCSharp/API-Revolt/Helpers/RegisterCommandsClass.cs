@@ -11,7 +11,7 @@ namespace KamWerksCardIndexCSharp.API_Revolt.Helpers
 		/// This code is provided by Creator/Chaosyr/SaxbyMod/The Stoat Lord.
 		public static async Task RegisterCommands(Type passingInType)
 		{
-			StartingPoint.RevoltCommandsPublic.Service.AddModuleAsync(passingInType, null);
+			await StartingPoint.RevoltCommandsPublic.Service.AddModuleAsync(passingInType, null);
 		}
 	}
 }

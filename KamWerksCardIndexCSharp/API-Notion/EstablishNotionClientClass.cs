@@ -11,7 +11,7 @@ namespace KamWerksCardIndexCSharp.API_Notion
 		/// This code is provided by Creator/Chaosyr/SaxbyMod/The Stoat Lord.
 		public static async Task EstablishNotionClient()
 		{
-			Logging.Log("EstablishNotionClient", "Info", "Setting up the Notion Client.");
+			await Logger.Log("EstablishNotionClient", "Info", "Setting up the Notion Client.");
 			NotionClient client = NotionClientFactory.Create(new ClientOptions { AuthToken = StartingPoint.NotionApiKeyPublic });
 			StartingPoint.NotionClientPublic = client;
 		}

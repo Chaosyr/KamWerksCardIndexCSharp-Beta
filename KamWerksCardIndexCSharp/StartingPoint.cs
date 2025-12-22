@@ -8,6 +8,8 @@ using KamWerksCardIndexCSharp.API_Revolt.Helpers;
 using KamWerksCardIndexCSharp.Data;
 using KamWerksCardIndexCSharp.Data.Inscryption_Card_Specific;
 using KamWerksCardIndexCSharp.Data.Inscryption_Sigil_Specific;
+using KamWerksCardIndexCSharp.Github;
+using KamWerksCardIndexCSharp.Helpers.GithubNodes;
 using KamWerksCardIndexCSharp.Helpers.Palletes;
 using KamWerksCardIndexCSharp.Util;
 using Notion.Client;
@@ -20,10 +22,10 @@ namespace KamWerksCardIndexCSharp
 	public class StartingPoint
 	{
 		// API Tokens
-		public static string NotionApiKeyPublic = "";
-		public static string DiscordApiKeyPublic = "";
-		public static string RevoltApiKeyPublic = "";
-		public static string GitHubApiKeyPublic = "";
+		public static string? NotionApiKeyPublic = "";
+		public static string? DiscordApiKeyPublic = "";
+		public static string? RevoltApiKeyPublic = "";
+		public static string? GitHubApiKeyPublic = "";
 
 		// Notion Related Const's
 		public static NotionClient NotionClientPublic;
@@ -33,7 +35,7 @@ namespace KamWerksCardIndexCSharp
 		public static Dictionary<string, List<string>> Sets = new Dictionary<string, List<string>>();
 		
 		// Discord Related Const's
-		public static DiscordClientBuilder DiscordClientBuilderPublic;
+		public static DiscordClientBuilder? DiscordClientBuilderPublic;
 		
 		// Revolt Related Const's
 		public static RevoltClient RevoltClientPublic;
@@ -43,7 +45,7 @@ namespace KamWerksCardIndexCSharp
 		public static GitHubClient GitHubClientPublic;
 		public static List<Repository> GithubRepos = new List<Repository>();
 		public static Dictionary<string, List<RepositoryContent>> GithubRepoContents = new Dictionary<string, List<RepositoryContent>>();
-		public static Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<string, List<RepositoryContent>>>>> GitHubAssets = new  Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<string, List<RepositoryContent>>>>>();
+		public static Dictionary<string, List<GithubNode>> GitHubAssets = new  Dictionary<string, List<GithubNode>>();
 
 		// General Const's
 		public static HttpClient httpClientPublic = new HttpClient();
@@ -52,13 +54,13 @@ namespace KamWerksCardIndexCSharp
 		public static async Task Main()
 		{
 			// Pre Client Connections
-			APIKeyChecks.ValidateTokens();
+			ApiKeyChecks.ValidateTokens();
 			
 			// GitHub Client Connections
 			EstablishGithubClientClass.EstablishGithubClient().Wait();
 			FillGithubReposClass.FillGithubRepos().Wait();
 			GetGitHubRepoContentsClass.GetGithubRepoContents().Wait();
-			SetupKamWerksURLBasesClass.SetupKamWerksURLBases().Wait();
+			SetupGithubAssetsClass.SetupGithubAssets().Wait();
 			
 			// Notion Client Connections
 			EstablishNotionClientClass.EstablishNotionClient().Wait();
